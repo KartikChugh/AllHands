@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('', include('volunteer.urls')), # redirect default path to volunteer/urls.py
     path('volunteer/', include('volunteer.urls')), 
+    path('', include('volunteer.urls')), # redirect default path to volunteer/urls.py
     path('admin/', admin.site.urls),
 ]
