@@ -10,3 +10,6 @@ def index(request):
 
 def myschedule(request):
     return render(request, 'volunteer/myschedule.html', None)
+
+def createpost(request):
+    return render(request, 'volunteer/createpost.html', None)
