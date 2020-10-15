@@ -1,3 +1,4 @@
+{% load socialaccount %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -57,7 +58,23 @@
     {% endif %}
     </nav>
 
+  {#    Check to make sure that the user is authenticated#}
+    {% if user.is_authenticated %}
+        {# Write code for the main page content starting here#}
     <h1>Post Volunteer Opportunity</h1>
+
+
+
+
+
+
+
+{#        If the user is not authenticated, then do not display the content#}
+    {% else %}
+    <h1>You're not signed in!</h1>
+    <a href="{% provider_login_url 'google' %}">Login with Google</a>
+    {% endif %}
+
 
     <footer class="footer">
       <div class="container">
