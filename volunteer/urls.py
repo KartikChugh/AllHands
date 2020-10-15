@@ -3,7 +3,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('schedule/', views.myschedule, name='myschedule'),
-    path('post/', views.createpost, name='createpost')
+    path('', views.login, name='login'),
+    path('volunteer/', views.index, name='index'),
+    path('volunteer/schedule/', views.myschedule, name='myschedule'),
+    path('volunteer/post/', views.createpost, name='createpost'),
+    path('volunteer/eventfinder/', views.eventfinder, name='eventfinder')
 ]

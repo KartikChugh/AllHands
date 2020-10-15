@@ -26,20 +26,23 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="/">How to become a volunteer <span class="sr-only">(current)</span></a>
+
+              <a class="nav-link" href="/volunteer/">How to become a volunteer <span class="sr-only">(current)</span></a>
             </li>
 
             <li class="nav-item active">
-              <a class="nav-link" href="/schedule">My schedule<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/volunteer/schedule/">My schedule<span class="sr-only">(current)</span></a>
             </li>
            
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Browse..
+              <a class="nav-link dropdown-toggle" href="/volunteer" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Comments
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/">Looking for places to volunteer for?</a>
-                <a class="dropdown-item" href="/post">I need volunteers!</a>
+
+                <a class="dropdown-item" href="/volunteer/eventfinder">Looking for places to volunteer for?</a>
+                <a class="dropdown-item" href="/volunteer/post">I need volunteers!</a>
+              </div>
                 
             </li>
 
@@ -57,16 +60,24 @@
     </nav>
 
 
-      {% if user.is_authenticated %}
-  <p>Welcome, {{ user.username }} !</p>
-      <p>your email is {{user.email  }}</p>
-{#                <a id="logout" href="/accounts/logout" class="btn btn-success">Logout</a>#}
+{#    Check to make sure that the user is authenticated#}
+    {% if user.is_authenticated %}
+        {# Write code for the main page content starting here#}
+        <h1>This the Home Page!</h1>
+        <p>Welcome, {{ user.username }} !</p>
+        <p>your email is {{user.email  }}</p>
+        <p>We probably make this page super pretty and stuff.</p>
 
 
-      {% else %}
-  <h1>You're not signed in!</h1>
-  <a href="{% provider_login_url 'google' %}">Login with Google</a>
-  {% endif %}
+
+
+
+
+{#        If the user is not authenticated, then do not display the content#}
+    {% else %}
+    <h1>You're not signed in!</h1>
+    <a href="{% provider_login_url 'google' %}">Login with Google</a>
+    {% endif %}
 
     <footer class="footer">
       <div class="container">
