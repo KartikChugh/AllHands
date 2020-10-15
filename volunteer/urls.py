@@ -6,5 +6,6 @@ urlpatterns = [
     path('', views.login, name='login'),
     path('volunteer/', views.index, name='index'),
     path('volunteer/schedule/', views.myschedule, name='myschedule'),
-    path('volunteer/post/', views.createpost, name='createpost')
+    path('volunteer/post/', views.createpost, name='createpost'),
+    path('volunteer/eventfinder/', views.eventfinder, name='eventfinder')
 ]

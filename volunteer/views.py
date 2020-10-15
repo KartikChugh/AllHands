@@ -20,3 +20,5 @@ def myschedule(request):
 def createpost(request):
     return render(request, 'volunteer/createpost.html', None)
 
+def eventfinder(request):
+    return render(request, 'volunteer/eventfinder.html', None)
