@@ -1,0 +1,14 @@
+language: python
+python:
+- '3.8'
+install:
+- pip install -r requirements-travis.txt
+script:
+- python manage.py test
+deploy:
+  provider: heroku
+  api_key:
+    secure: unYlL0yned3DoO9ktWl50kHZ0uW5d/abWOWkmQF8tHiFBN0huvYnp8D3GHOQt7Hi/pV0fR4jyA06qfKrzRP7M5l2ZkwIZmptt2A3vSrLba2hhg3r6zmLIcpS/F8aqiPk2G2f+ogtB+q21K8wkyGHLKBM2DH227lNa7Vf0jwB0dhjuPdbA+MA5HTmmEywDnT8CezeHAcvxgfTp3pnMAw2B4kXnQx7xo7AcmZoKn+G34pss4JsFp58W0d2CHcEVNhX3mTOolLRSe4uTGMryAyOKKDjUPQUwbrEi8X0SHsR4lhKt8a0sVlaLFb8p3GkgAn9otpP7xi7tma+SbO1xODYdsKRI/N2G9B5iqhp1dhofW8yYd8ZfIoqgorz7yy59Aqzvx1vLjzEG7ZXKlU8J6rTWiqz1YhwxB1NIVfisDZNmH/l2aGWOJfFQHSQBMmkjPVwBj8LIQ9xucy/JgIiRyL9oU2wywR7srjuAJteUEIXFKniyM+j4ueZ5deimSceiZ9L0TG0Pad2fihVjW7iImVCvZX1wGSAVEj+CAmwatqyvQKw0ufxioqWExgxzNo7Aeo7x2ish78cVad7v/QMy1WY5DmiB74UglCEwta3OGNfO0MJfoWtI9SEh3/bQSy8Cd1nib3SqRFVjnChLcZDoNEHZHBWZi/UJdEtdxVZkc5YBlE=
+  app: microwave-django
+  on:
+    repo: uva-cs3240-f20/project-2-24

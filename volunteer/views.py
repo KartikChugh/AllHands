@@ -6,10 +6,15 @@ from django.urls import reverse_lazy
 from .models import VolunteerEvent
 
 
+def login(request):
+    return render(request, 'volunteer/login.html', None)
+
+
 def index(request):
     # template = loader.get_template('volunteer/index.html')
     # return HttpResponse(template.render())
     return render(request, 'volunteer/index.html', None)
+
 
 def myschedule(request):
     return render(request, 'volunteer/myschedule.html', None)
