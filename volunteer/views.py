@@ -19,3 +19,12 @@ class CreateVolunteerEventView(generic.CreateView):
     template_name = 'volunteer/createpost.html'
     fields = ['event_title', 'event_datetime', 'event_description', 'event_image']
     success_url = reverse_lazy('volunteer:createpost') # use lazy to avoid circular import error
+
+
+class EventBrowseView(generic.ListView):
+    template_name = 'volunteer/eventbrowse.html'
+    context_object_name = 'event_list'
+
+    def get_queryset(self):
+        return VolunteerEvent.objects.order_by('-event_title')
+
