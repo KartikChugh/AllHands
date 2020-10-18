@@ -48,6 +48,11 @@
     </nav>
 
     <h1>Post Volunteer Opportunity</h1>
+    <form method="post" class="form-check">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Post!" class="btn btn-primary">
+  </form>
 
     <footer class="footer">
       <div class="container">
