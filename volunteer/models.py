@@ -4,15 +4,21 @@ from django import forms
 from datetime import datetime
 
 class VolunteerEvent(models.Model):
-    event_title = models.CharField(max_length=25, default=None)
+
+    # tags_choices =[
+    #     ('HOME_REPAIR', 'Home Repair'), 
+    #     ('BAKE_SALE', 'Bake Sale')
+    # ]
+
+    event_title = models.CharField(max_length=25)
     event_datetime = models.DateTimeField(default=datetime.now())
-    event_description = models.CharField(max_length=250, default=None)
+    event_description = models.CharField(max_length=250)
+    # event_tags = models.CharField(max_length=15, choices=tags_choices, null=True, blank=True)
     event_author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         default=1
     )
-    # event_tags = forms.MultipleChoiceField()
 
     def __str__(self):
         return self.event_title
