@@ -1,20 +1,11 @@
 language: python
 python:
 - '3.8'
-
-env:
-  global:
-    - DB-NAME=chris-testing-db
-
-
 services:
   - postgresql
-
 install:
 - pip install -r requirements-travis.txt
 before_script:
-  - touch .env
-  - echo DB-NAME=$DB-NAME >> .env
   - psql -c 'create database travis_ci_test;' -U postgres
 script:
 - python manage.py test
