@@ -12,7 +12,11 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 from dotenv import load_dotenv
 load_dotenv()
+import environ
 
+env = environ.Env()
+# root_path = environ.Path(__file__) - 2
+# env.read_env(env_file=root_path(".env"))
 import os
 from pathlib import Path
 
@@ -66,7 +70,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [str(BASE_DIR.joinpath('templates'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -86,18 +90,43 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+    # 'default': {
+    #
+    #     'ENGINE': (os.environ.get('DB-ENGINE')),
+    #     # 'NAME': (os.environ.get('DB-NAME')),
+    #     'NAME': env("DB-NAME"),
+    #
+    #     'USER': (os.environ.get('DB-USER')),
+    #     'PASSWORD': (os.environ.get('DB-PASSWORD')),
+    #     'HOST': (os.environ.get('DB-HOST')),
+    #     'PORT': (os.environ.get('DB-PORT')),
+    #
+    # }
     'default': {
 
-        'ENGINE': (os.environ.get('DB-ENGINE')),
-        'NAME': (os.environ.get('DB-NAME')),
-        'USER': (os.environ.get('DB-USER')),
-        'PASSWORD': (os.environ.get('DB-PASSWORD')),
-        'HOST': (os.environ.get('DB-HOST')),
-        'PORT': (os.environ.get('DB-PORT')),
+        'ENGINE': env("DB-ENGINE", default="django.db.backends.postgresql_psycopg2"),
+        'NAME': env("DB-NAME", default="postgres"),
+        'USER': env("DB-USER", default="postgres"),
+        'PASSWORD': env("DB-PASSWORD", default=""),
+        'HOST': env("DB-HOST", default="localhost"),
+        'PORT': env("DB-PORT", default="5432"),
 
     }
 }
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# PROJECT_ROOT = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
+# MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+# MEDIA_URL = '/media/'
+# STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static').replace('\\', '/')
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = ()
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
