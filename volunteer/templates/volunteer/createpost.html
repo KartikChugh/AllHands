@@ -6,9 +6,10 @@
 
 <h1>Post Volunteer Opportunity</h1>
 
-<form method="post" class="form-check">
+<form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   {{ form.as_p }}
+{#      <button type="submit">Submit New Post</button>#}
   <input type="submit" value="Post!" class="btn btn-primary">
 </form>
 
