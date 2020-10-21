@@ -10,7 +10,10 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+from dotenv import load_dotenv
+load_dotenv()
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -84,8 +87,14 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+
+        'ENGINE': (os.environ.get('DB-ENGINE')),
+        'NAME': (os.environ.get('DB-NAME')),
+        'USER': (os.environ.get('DB-USER')),
+        'PASSWORD': (os.environ.get('DB-PASSWORD')),
+        'HOST': (os.environ.get('DB-HOST')),
+        'PORT': (os.environ.get('DB-PORT')),
+
     }
 }
 
@@ -141,7 +150,9 @@ AUTHENTICATION_BACKENDS = (
  'allauth.account.auth_backends.AuthenticationBackend',
  )
 
+# SITE_ID = int(os.environ.get('site_id'))
 SITE_ID = 4
+
 LOGIN_REDIRECT_URL = '/'
 
 SOCIALACCOUNT_PROVIDERS = {
