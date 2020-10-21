@@ -12,11 +12,3 @@ deploy:
   app: microwave-django
   on:
     repo: uva-cs3240-f20/project-2-24
-
-env:
-- DB-ENGINE='django.db.backends.postgresql_psycopg2'
-- DB-NAME='django-gp'
-- DB-USER='postgres'
-- DB-PASSWORD='microWave'
-- DB-HOST='localhost'
-- DB-PORT='5432'
