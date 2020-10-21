@@ -4,3 +4,4 @@ django-heroku
 django-allauth
 Pillow
 psycopg2
+dotenv
