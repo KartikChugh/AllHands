@@ -5,3 +5,4 @@ django-allauth
 Pillow
 psycopg2
 python-dotenv
+django-environ
