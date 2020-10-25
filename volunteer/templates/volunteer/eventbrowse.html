@@ -15,6 +15,7 @@
                         <li  class="list-group-item">{{ event.event_title }}</li>
                             <br>
                             <a> {{event.event_description }}</a>
+                            <a> Date: {{event.event_datetime}}</a>
                             <img src="{{ event.cover.url}}" alt="{{ event.title }}" style="width:128px;height:128px;">
                         </li>
                     {% endfor %}
