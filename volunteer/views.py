@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 
 from .forms import PostForm # new
 from .models import VolunteerEvent
+from .models import VolunteerProfile
 
 
 def login(request):
@@ -40,3 +41,12 @@ class EventBrowseView(generic.ListView):
 
     def get_queryset(self):
         return VolunteerEvent.objects.order_by('-event_title')
+
+
+def signup(request, event_title):  
+    if (request.method=="POST"):
+        VolunteerProfile.eventlist.append(event_title)
+        VolunteerProfile.save()
+        return HttpResponseRedirect('volunteer/eventbrowse.html')
+    else: 
+        return render(request, 'volunteer/eventbrowse.html')
