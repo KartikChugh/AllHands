@@ -31,6 +31,7 @@ class VolunteerEvent(models.Model):
 class VolunteerProfile(models.Model):
     #user = models.ManyToManyField(User),
     user=models.OneToOneField(User, on_delete=models.CASCADE)
-    eventlist=ArrayField(models.CharField(max_length=20))
+    eventlist=ArrayField(models.CharField(max_length=20), blank=True)
+    numofevents=models.IntegerField(default=0)
     def __str__(self):
         return self.user

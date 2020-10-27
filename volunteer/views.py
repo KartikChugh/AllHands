@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.views import generic
 from django.urls import reverse_lazy
@@ -45,7 +45,11 @@ class EventBrowseView(generic.ListView):
 
 def signup(request, event_title):  
     if (request.method=="POST"):
-        VolunteerProfile.eventlist.append(event_title)
+        #VolunteerProfile.eventlist.append(event_title)
+        #VolunteerProfile.eventlist=[event_title]
+        #VolunteerProfile.eventlist.append(event_title)
+        num=VolunteerProfile.numofevents
+        VolunteerProfile.numofevents=VolunteerProfile.numofevents+1
         VolunteerProfile.save()
         return HttpResponseRedirect('volunteer/eventbrowse.html')
     else: 
