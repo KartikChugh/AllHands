@@ -4,18 +4,29 @@
 {% block content %}
 
 <title>My schedule</title>
-<h1>Schedule Items:
-    <small class="text-muted">Click to view details.</small>
-</h1>
 
-    <ul class="flex-container">
+<h1>My registered events: </h1>
 
-                <li class="flex-item">
-
-                        <p>Monday: </p>
-
-                </li>
-
-    </ul>
-
+<div class="container-sm">
+                    {% if myevents %}
+                    <div class="flex-container">
+                    {% for event in myevents %}
+                    
+                        
+                        <form action="{% url 'volunteer:signup' event.event_title %}" method="post">
+                            {% csrf_token %}
+                        <div  class="flex-item" style="width:300px;height:300px">{{ event.event_title }}
+                            <br>
+                            <a> <div class="descrip">{{event.event_description }}</div></a>
+                            <img src="{{ event.cover.url}}" alt="{{ event.title }}" style="width:128px;height:128px">
+                            <input type="Submit" class="btn btn-outline-dark" value="Sign up" >
+                        </div>
+                        </form>
+                   
+                    {% endfor %}
+                    </div>
+                    {% else %}
+                        <p>Not signed up for any events.</p>
+                    {% endif %}
+                    
 {% endblock %}

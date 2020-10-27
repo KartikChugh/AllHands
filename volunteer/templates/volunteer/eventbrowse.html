@@ -11,22 +11,22 @@
             <div class="card card-body text-center mt-5">
                  <form>-->
                     {% if event_list %}
-                    <ul class="flex-container">
+                    <div class="flex-container">
                     {% for event in event_list %}
                     
                     
                         <form action="{% url 'volunteer:signup' event.event_title %}" method="post">
                             {% csrf_token %}
-                        <li  class="flex-item" style="width:300px;height:300px">{{ event.event_title }}
+                        <div  class="flex-item" style="width:300px;height:300px">{{ event.event_title }}
                             <br>
                             <a> <div class="descrip">{{event.event_description }}</div></a>
                             <img src="{{ event.cover.url}}" alt="{{ event.title }}" style="width:128px;height:128px">
                             <input type="Submit" class="btn btn-outline-dark" value="Sign up" >
-                        </li>
+                        </div>
                         </form>
                    
                     {% endfor %}
-                    </ul>
+                    </div>
                     {% else %}
                         <p>No events are available.</p>
                     {% endif %}

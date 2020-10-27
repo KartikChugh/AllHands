@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 
 from .forms import PostForm # new
 from .models import VolunteerEvent
-from .models import VolunteerProfile
+from django.contrib.auth.models import User
 
 
 def login(request):
@@ -20,7 +20,10 @@ def index(request):
 
 
 def myschedule(request):
-    return render(request, 'volunteer/myschedule.html', None)
+    me=request.user.events_attending.all()
+    context={'myevents': me}
+    print("CONTEXT", context)
+    return render(request, 'volunteer/myschedule.html', context)
 
 class CreateVolunteerEventView(generic.CreateView):
     model = VolunteerEvent
@@ -47,10 +50,25 @@ def signup(request, event_title):
     if (request.method=="POST"):
         #VolunteerProfile.eventlist.append(event_title)
         #VolunteerProfile.eventlist=[event_title]
-        #VolunteerProfile.eventlist.append(event_title)
-        num=VolunteerProfile.numofevents
-        VolunteerProfile.numofevents=VolunteerProfile.numofevents+1
-        VolunteerProfile.save()
-        return HttpResponseRedirect('volunteer/eventbrowse.html')
+        #user = User.objects.get(id=request.user.id)  
+        #user.profile.events.add(VolunteerEvent.objects.get(event_title=event_title))
+        #user.profile.numofevents+=1
+        #profile.eventlist.append(event_title)
+        #request.user.VolunteerProfile.events.add(event_title)
+        #num=VolunteerProfile.numofevents
+        #VolunteerProfile.numofevents=VolunteerProfile.numofevents+1
+        VolunteerEvent.objects.get(event_title=event_title).attending.add(request.user)
+        print(request.user.events_attending.all())
+
+        return HttpResponseRedirect(reverse_lazy('volunteer:myschedule'))
     else: 
         return render(request, 'volunteer/eventbrowse.html')
+
+class MyScheduleView(generic.ListView): 
+    template_name='volunteer/schedule.html'
+    context_object_name='me'
+    #print("EVENTS ATTENDING: ")
+    #print(User.events_attending.all())
+    def get_queryset(self):
+        print("In view: ", me)
+        return me

@@ -5,6 +5,10 @@ from datetime import datetime
 
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
+
 
 
 class VolunteerEvent(models.Model):
@@ -24,14 +28,7 @@ class VolunteerEvent(models.Model):
         on_delete=models.CASCADE,
         default=1
     )
-
+    attending=models.ManyToManyField(User, related_name='events_attending')
     def __str__(self):
         return self.event_title
 
-class VolunteerProfile(models.Model):
-    #user = models.ManyToManyField(User),
-    user=models.OneToOneField(User, on_delete=models.CASCADE)
-    eventlist=ArrayField(models.CharField(max_length=20), blank=True)
-    numofevents=models.IntegerField(default=0)
-    def __str__(self):
-        return self.user
