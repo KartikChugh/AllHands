@@ -3,6 +3,14 @@ from django.conf import settings
 from django import forms
 from datetime import datetime
 
+from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
+
+
+
 class VolunteerEvent(models.Model):
 
     # tags_choices =[
@@ -20,6 +28,7 @@ class VolunteerEvent(models.Model):
         on_delete=models.CASCADE,
         default=1
     )
-
+    attending=models.ManyToManyField(User, related_name='events_attending')
     def __str__(self):
         return self.event_title
+

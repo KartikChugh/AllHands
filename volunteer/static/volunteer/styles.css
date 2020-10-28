@@ -50,6 +50,7 @@ html {
 }
 
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
+  
   display: block;
 }
 
@@ -4354,8 +4355,8 @@ input[type=button].btn-block {
 
 .card-footer {
   padding: 0.75rem 1.25rem;
-  background-color: rgba(0, 0, 0, 0.03);
-  border-top: 0.125rem solid rgba(0, 0, 0, 0.125);
+  background-color: rgba(26, 47, 243, 0.877);
+  border-top: 0.125rem solid red;
 }
 .card-footer:last-child {
   border-radius: 0 0 0.375rem 0.375rem;
