@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.template import loader
 from django.views import generic
 from django.urls import reverse_lazy
+
+from .forms import PostForm # new
 from .models import VolunteerEvent
 
 
@@ -21,10 +23,15 @@ def myschedule(request):
 
 class CreateVolunteerEventView(generic.CreateView):
     model = VolunteerEvent
+    form_class = PostForm
     template_name = 'volunteer/createpost.html'
-    # fields = ['event_title', 'event_datetime', 'event_description', 'event_image']
-    fields = ['event_title', 'event_description']
-    success_url = reverse_lazy('volunteer:createpost') # use lazy to avoid circular import error
+    success_url = reverse_lazy('volunteer:createpost')
+
+    # model = VolunteerEvent
+    # template_name = 'volunteer/createpost.html'
+    # # fields = ['event_title', 'event_datetime', 'event_description', 'event_image']
+    # fields = ['event_title', 'event_description']
+    # success_url = reverse_lazy('volunteer:createpost') # use lazy to avoid circular import error
 
 
 class EventBrowseView(generic.ListView):

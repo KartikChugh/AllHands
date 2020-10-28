@@ -4,6 +4,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 .idea/
+
 playground/
 
 # C extensions
@@ -112,3 +113,5 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+media/images/

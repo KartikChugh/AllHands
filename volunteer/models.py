@@ -14,6 +14,7 @@ class VolunteerEvent(models.Model):
     event_datetime = models.DateTimeField(default=datetime(2020, 1, 1))
     event_description = models.CharField(max_length=250)
     # event_tags = models.CharField(max_length=15, choices=tags_choices, null=True, blank=True)
+    cover = models.ImageField(upload_to='images/', blank=False, null=False, default="stock/thomas.jpg")
     event_author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
