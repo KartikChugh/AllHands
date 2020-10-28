@@ -46,7 +46,7 @@ class EventBrowseView(generic.ListView):
         return VolunteerEvent.objects.order_by('-event_title')
 
 
-def signup(request, event_title):  
+def signup(request, pk):  
     if (request.method=="POST"):
         #VolunteerProfile.eventlist.append(event_title)
         #VolunteerProfile.eventlist=[event_title]
@@ -57,7 +57,8 @@ def signup(request, event_title):
         #request.user.VolunteerProfile.events.add(event_title)
         #num=VolunteerProfile.numofevents
         #VolunteerProfile.numofevents=VolunteerProfile.numofevents+1
-        VolunteerEvent.objects.get(event_title=event_title).attending.add(request.user)
+        #VolunteerEvent.objects.get(event_title=event_title).attending.add(request.user)
+        VolunteerEvent.objects.get(pk=pk).attending.add(request.user)
         print(request.user.events_attending.all())
 
         return HttpResponseRedirect(reverse_lazy('volunteer:myschedule'))
@@ -72,3 +73,9 @@ class MyScheduleView(generic.ListView):
     def get_queryset(self):
         print("In view: ", me)
         return me
+
+
+
+class DetailView(generic.DetailView):
+    model = VolunteerEvent
+    template_name = 'volunteer/detail.html'
