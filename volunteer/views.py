@@ -26,6 +26,9 @@ def index(request):
 
     return render(request, 'volunteer/index.html', None)
 
+class ScheduleView(generic.ListView):
+    template_name = 'volunteer/myschedule.html'
+    context_object_name = 'upcoming_scheduled_events'
 
 def myschedule(request):
     if not request.user.is_authenticated:
