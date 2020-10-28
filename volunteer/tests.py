@@ -1,6 +1,13 @@
 from django.test import TestCase
+from .models import VolunteerEvent
 
-# Create your tests here.
+class VolunteerEventModelTests(TestCase):
+    def test_event_fields(self):
+        title = 'title'
+        description = 'description'
+        event = VolunteerEvent(event_title=title, event_description=description)
+        self.assertEquals(event.event_title, title)
+        self.assertEquals(event.event_description, description)
 
 class DummyTestCase(TestCase):
     def setUp(self):
