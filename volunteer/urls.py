@@ -9,5 +9,6 @@ urlpatterns = [
     path('volunteer/', views.index, name='index'),
     path('volunteer/schedule/', views.myschedule, name='myschedule'),
     path('volunteer/post/', views.CreateVolunteerEventView.as_view(), name='createpost'),
+    path('volunteer/signup/<event_title>', views.signup, name='signup'),
     # path('volunteer/eventfinder/', views.eventfinder, name='eventfinder')
 ]
