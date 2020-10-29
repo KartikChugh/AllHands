@@ -13,16 +13,15 @@
                     {% for event in myevents %}
                     
                         
-                        <form action="{% url 'volunteer:signup' event.event_title %}" method="post">
+                       
                             {% csrf_token %}
                         <div  class="flex-item" style="width:300px;height:300px">{{ event.event_title }}
                             <br>
-                            <a> <div class="descrip">{{event.event_description }}</div></a>
+                            <a href="{% url 'volunteer:detail' event.id %}">Click for details.</a>
                             <img src="{{ event.cover.url}}" alt="{{ event.title }}" style="width:128px;height:128px">
-                            <input type="Submit" class="btn btn-outline-dark" value="Sign up" >
+                            
                         </div>
-                        </form>
-                   
+                       
                     {% endfor %}
                     </div>
                     {% else %}

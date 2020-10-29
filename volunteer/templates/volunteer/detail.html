@@ -1,0 +1,26 @@
+{% extends './base.html' %}
+
+
+{% block content %}
+
+<form action="{% url 'volunteer:signup' object.id %}" method="post"> 
+    {% csrf_token %}
+   
+    <div class="row">
+    <div class="col-sm">
+    <h1>Title: </h1>
+    <p>{{object.event_title}}</p>
+    <h1>Date: </h1>
+    <p>{{object.event_datetime}}</p>
+    <h1>Description: </h1>
+    <p>{{object.event_description }}</p>
+    </div>
+    <div class="col-sm">
+        <img src="{{ object.cover.url}}" alt="{{ object.title }}" style="width:500px;height:400px">
+    </div>
+    </div>
+
+<input type="Submit" class="btn btn-outline-dark" value="Sign up" > 
+</form>
+<div style="margin-bottom:20%"></div>
+{% endblock %}

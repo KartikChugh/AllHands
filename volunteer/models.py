@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.urls import reverse
+
 
 
 
@@ -29,6 +31,9 @@ class VolunteerEvent(models.Model):
         default=1
     )
     attending=models.ManyToManyField(User, related_name='events_attending')
+    #slug=models.SlugField(null=True)
     def __str__(self):
         return self.event_title
+    #def get_absolute_url(self):
+     #   return reverse('event_detail', kwargs={'slug': self.slug})
 
