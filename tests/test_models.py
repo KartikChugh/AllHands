@@ -1,8 +1,51 @@
 from django.test import TestCase
 
 from volunteer.models import VolunteerEvent
+from django.contrib.auth.models import User # Required to assign User as a borrower
+from datetime import datetime
 
-class VolunteerEventModelTests(TestCase):
+
+
+class VolunteerEventModelTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        # Set up non-modified objects used by all test methods
+        test_user1 = User.objects.create_user(username='testuser1', password='1X<ISRUkw+tuK')
+        test_user1.save()
+        VolunteerEvent.objects.create(event_title='Fun Event', event_description='This event will be really fun')
+
+    def test_event_fields(self):
+        title = 'titl'
+        description = 'descriptio'
+        event = VolunteerEvent(event_title=title, event_description=description)
+        self.assertEquals(event.event_title, title)
+        self.assertEquals(event.event_description, description)
+
+    def test_event_name_label(self):
+        v_event = VolunteerEvent.objects.get(id=1)
+        field_label = v_event._meta.get_field('event_title').verbose_name
+        self.assertEqual(field_label, 'event title')
+
+    def test_event_description_label(self):
+        author=VolunteerEvent.objects.get(id=1)
+        field_label = author._meta.get_field('event_description').verbose_name
+        self.assertEqual(field_label, 'event description')
+
+    def test_event_name_max_length(self):
+        author = VolunteerEvent.objects.get(id=1)
+        max_length = author._meta.get_field('event_title').max_length
+        self.assertEqual(max_length, 25)
+
+    def test_event_description_max_length(self):
+        author = VolunteerEvent.objects.get(id=1)
+        max_length = author._meta.get_field('event_description').max_length
+        self.assertEqual(max_length, 250)
+
+    def test_default_datetime(self):
+        author = VolunteerEvent.objects.get(id=1)
+        expected_object_name = datetime(2020, 1, 1).date()
+        self.assertEqual(expected_object_name, author.event_datetime.date())
+
     def test_event_fields(self):
         title = 'title'
         description = 'description'
@@ -10,37 +53,3 @@ class VolunteerEventModelTests(TestCase):
         self.assertEquals(event.event_title, title)
         self.assertEquals(event.event_description, description)
 
-
-
-# from catalog.models import Author
-#
-# class AuthorModelTest(TestCase):
-#     @classmethod
-#     def setUpTestData(cls):
-#         # Set up non-modified objects used by all test methods
-#         Author.objects.create(first_name='Big', last_name='Bob')
-#
-#     def test_first_name_label(self):
-#         author = Author.objects.get(id=1)
-#         field_label = author._meta.get_field('first_name').verbose_name
-#         self.assertEqual(field_label, 'first name')
-#
-#     def test_date_of_death_label(self):
-#         author=Author.objects.get(id=1)
-#         field_label = author._meta.get_field('date_of_death').verbose_name
-#         self.assertEqual(field_label, 'died')
-#
-#     def test_first_name_max_length(self):
-#         author = Author.objects.get(id=1)
-#         max_length = author._meta.get_field('first_name').max_length
-#         self.assertEqual(max_length, 100)
-#
-#     def test_object_name_is_last_name_comma_first_name(self):
-#         author = Author.objects.get(id=1)
-#         expected_object_name = f'{author.last_name}, {author.first_name}'
-#         self.assertEqual(expected_object_name, str(author))
-#
-#     def test_get_absolute_url(self):
-#         author = Author.objects.get(id=1)
-#         # This will also fail if the urlconf is not defined.
-#         self.assertEqual(author.get_absolute_url(), '/catalog/author/1')
