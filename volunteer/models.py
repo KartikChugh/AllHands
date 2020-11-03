@@ -9,11 +9,6 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.urls import reverse
 from django.utils import timezone
-
-
-
-
-
 class VolunteerEvent(models.Model):
 
     # tags_choices =[
