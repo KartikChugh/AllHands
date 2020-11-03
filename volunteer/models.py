@@ -8,6 +8,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.urls import reverse
+from django.utils import timezone
 
 
 
@@ -36,4 +37,6 @@ class VolunteerEvent(models.Model):
         return self.event_title
     #def get_absolute_url(self):
      #   return reverse('event_detail', kwargs={'slug': self.slug})
+    def is_past(self):
+        return timezone.now() > self.event_datetime
 
