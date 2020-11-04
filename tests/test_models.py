@@ -29,13 +29,6 @@ class VolunteerEventModelTest(TestCase):
 
     # Fields
 
-    def test_event_fields(self):
-        title = 'titl'
-        description = 'descriptio'
-        event = VolunteerEvent(event_title=title, event_description=description)
-        self.assertEquals(event.event_title, title)
-        self.assertEquals(event.event_description, description)
-
     def test_event_name_label(self):
         v_event = VolunteerEvent.objects.get(id=1)
         field_label = v_event._meta.get_field('event_title').verbose_name
