@@ -12,6 +12,7 @@ class VolunteerEventModelTest(TestCase):
         # Set up non-modified objects used by all test methods
         test_user1 = User.objects.create_user(username='testuser1', password='1X<ISRUkw+tuK')
         test_user1.save()
+
         VolunteerEvent.objects.create(event_title='Fun Event', event_description='This event will be really fun')
 
     def test_event_fields(self):
@@ -53,3 +54,15 @@ class VolunteerEventModelTest(TestCase):
         self.assertEquals(event.event_title, title)
         self.assertEquals(event.event_description, description)
 
+    def test_event_attending_event_set(self):
+        event = VolunteerEvent.objects.filter(event_title='Fun Event').first()
+        user1 = User.objects.create_user(username='user1', password='abc')
+        user2 = User.objects.create_user(username='user2', password='123')
+        event.attending.set([user1.pk, user2.pk])
+        self.assertEqual(event.attending.count(), 2)
+
+
+    def test_string_output(self):
+        name = 'Fun Event'
+        event = VolunteerEvent.objects.filter(event_title=name).first()
+        self.assertEqual(str(event),name)
