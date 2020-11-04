@@ -49,7 +49,7 @@ class VolunteerEventModelTest(TestCase):
     def test_event_name_max_length(self):
         author = VolunteerEvent.objects.get(id=1)
         max_length = author._meta.get_field('event_title').max_length
-        self.assertEqual(max_length, 25)
+        self.assertEqual(max_length, 45)
 
     def test_event_description_max_length(self):
         author = VolunteerEvent.objects.get(id=1)
@@ -58,7 +58,7 @@ class VolunteerEventModelTest(TestCase):
 
     def test_default_datetime(self):
         author = VolunteerEvent.objects.get(id=1)
-        expected_object_name = datetime.datetime(2020, 1, 1).date()
+        expected_object_name = timezone.now().date()
         self.assertEqual(expected_object_name, author.event_datetime.date())
 
     def test_event_fields(self):
