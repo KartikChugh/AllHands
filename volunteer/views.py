@@ -3,6 +3,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.views import generic
 from django.urls import reverse_lazy
+from django.conf import settings
+from django.shortcuts import redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 from .forms import PostForm # new
 from .models import VolunteerEvent
@@ -10,22 +14,29 @@ from django.contrib.auth.models import User
 
 
 def login(request):
-    return render(request, 'volunteer/login.html', None)
+    if not request.user.is_authenticated:
+        return render(request, 'volunteer/login.html', None)
+
+    return redirect('%s?next=%s' % (settings.LOGIN_REDIRECT_URL, request.path))
 
 
 def index(request):
-    # template = loader.get_template('volunteer/index.html')
-    # return HttpResponse(template.render())
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
     return render(request, 'volunteer/index.html', None)
 
 
 def myschedule(request):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
     me=request.user.events_attending.all()
     context={'myevents': me}
     print("CONTEXT", context)
     return render(request, 'volunteer/myschedule.html', context)
 
-class CreateVolunteerEventView(generic.CreateView):
+class CreateVolunteerEventView(LoginRequiredMixin ,generic.CreateView):
     model = VolunteerEvent
     form_class = PostForm
     template_name = 'volunteer/createpost.html'
@@ -38,7 +49,7 @@ class CreateVolunteerEventView(generic.CreateView):
     # success_url = reverse_lazy('volunteer:createpost') # use lazy to avoid circular import error
 
 
-class EventBrowseView(generic.ListView):
+class EventBrowseView(LoginRequiredMixin ,generic.ListView):
     template_name = 'volunteer/eventbrowse.html'
     context_object_name = 'event_list'
 
@@ -46,7 +57,10 @@ class EventBrowseView(generic.ListView):
         return VolunteerEvent.objects.order_by('-event_title')
 
 
-def signup(request, pk):  
+def signup(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
     if (request.method=="POST"):
         #VolunteerProfile.eventlist.append(event_title)
         #VolunteerProfile.eventlist=[event_title]
@@ -65,7 +79,7 @@ def signup(request, pk):
     else: 
         return render(request, 'volunteer/eventbrowse.html')
 
-class MyScheduleView(generic.ListView): 
+class MyScheduleView(LoginRequiredMixin, generic.ListView):
     template_name='volunteer/schedule.html'
     context_object_name='me'
     #print("EVENTS ATTENDING: ")
@@ -76,6 +90,6 @@ class MyScheduleView(generic.ListView):
 
 
 
-class DetailView(generic.DetailView):
+class DetailView(LoginRequiredMixin ,generic.DetailView):
     model = VolunteerEvent
     template_name = 'volunteer/detail.html'

@@ -182,7 +182,8 @@ AUTHENTICATION_BACKENDS = (
 # SITE_ID = int(os.environ.get('site_id'))
 SITE_ID = 4
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/volunteer'
+LOGIN_URL = '/'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
