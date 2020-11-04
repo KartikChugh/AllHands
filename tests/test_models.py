@@ -2,8 +2,8 @@ from django.test import TestCase
 
 from volunteer.models import VolunteerEvent
 from django.contrib.auth.models import User # Required to assign User as a borrower
-from datetime import datetime
-
+from django.utils import timezone
+import datetime
 
 
 class VolunteerEventModelTest(TestCase):
@@ -14,6 +14,20 @@ class VolunteerEventModelTest(TestCase):
         test_user1.save()
 
         VolunteerEvent.objects.create(event_title='Fun Event', event_description='This event will be really fun')
+
+    # Methods
+
+    def test_past_event(self):
+        datetime_past = timezone.now() - datetime.timedelta(milliseconds=1)
+        event = VolunteerEvent(event_title='title', event_description='descr', event_datetime=datetime_past)
+        self.assertTrue(event.is_past())
+
+    def test_upcoming_event(self):
+        datetime_future = timezone.now() + datetime.timedelta(milliseconds=1)
+        event = VolunteerEvent(event_title='title', event_description='descr', event_datetime=datetime_future)
+        self.assertFalse(event.is_past())
+
+    # Fields
 
     def test_event_fields(self):
         title = 'titl'
@@ -44,7 +58,7 @@ class VolunteerEventModelTest(TestCase):
 
     def test_default_datetime(self):
         author = VolunteerEvent.objects.get(id=1)
-        expected_object_name = datetime(2020, 1, 1).date()
+        expected_object_name = datetime.datetime(2020, 1, 1).date()
         self.assertEqual(expected_object_name, author.event_datetime.date())
 
     def test_event_fields(self):
