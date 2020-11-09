@@ -5,3 +5,4 @@ Pillow
 psycopg2
 python-dotenv
 django-environ
+dgango-taggit
