@@ -28,7 +28,7 @@
 
 <h1>My Previously Attended Events: </h1>
 <div class="container-sm">
-    {% if events_upcoming %}
+    {% if events_past %}
     <div class="flex-container">
         {% for event in events_past %}
         {% csrf_token %}
