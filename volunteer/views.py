@@ -42,6 +42,20 @@ def myschedule(request):
     print("CONTEXT", context)
     return render(request, 'volunteer/myschedule.html', context)
 
+def myevents(request):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
+    me=request.user.events_written.all()
+
+    ids_past = [event.id for event in me if event.is_past()]
+    events_past = me.filter(id__in=ids_past)
+    events_upcoming = me.exclude(id__in=ids_past)
+
+    context={'events_upcoming': events_upcoming, 'events_past': events_past}
+    print("CONTEXT", context)
+    return render(request, 'volunteer/myevents.html', context)
+
 class CreateVolunteerEventView(LoginRequiredMixin ,generic.CreateView):
     model = VolunteerEvent
     form_class = PostForm

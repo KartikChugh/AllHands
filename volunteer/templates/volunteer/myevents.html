@@ -1,0 +1,49 @@
+{% extends './base.html' %}
+
+
+{% block content %}
+
+<title>My schedule</title>
+
+
+<h1>My Upcoming Events: </h1>
+<div class="container-sm">
+    {% if events_upcoming %}
+        <div class="flex-container">
+            {% for event in events_upcoming %}
+            {% csrf_token %}
+            <div class="flex-item" style="width:300px;height:300px">{{ event.event_title }}
+                <br>
+                <a href="{% url 'volunteer:detail' event.id %}">Click for details.</a>
+                <img src="{{ event.cover.url}}" alt="{{ event.title }}" style="width:128px;height:128px">
+
+            </div>
+
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No upcoming events.</p>
+    {% endif %}
+</div>
+
+<h1>My Previously Attended Events: </h1>
+<div class="container-sm">
+    {% if events_past %}
+    <div class="flex-container">
+        {% for event in events_past %}
+        {% csrf_token %}
+        <div class="flex-item" style="width:300px;height:300px">{{ event.event_title }}
+            <br>
+            <a href="{% url 'volunteer:detail' event.id %}">Click for details.</a>
+            <img src="{{ event.cover.url}}" alt="{{ event.title }}" style="width:128px;height:128px">
+
+        </div>
+
+        {% endfor %}
+    </div>
+    {% else %}
+        <p>No previous events.</p>
+    {% endif %}
+</div>
+
+    {% endblock %}
