@@ -159,3 +159,7 @@ class MyScheduleView(LoginRequiredMixin, generic.ListView):
 class DetailView(LoginRequiredMixin ,generic.DetailView):
     model = VolunteerEvent
     template_name = 'volunteer/detail.html'
+
+class EventDetailView(LoginRequiredMixin, generic.DetailView):
+    model = VolunteerEvent
+    template_name = 'volunteer/detailmyevent.html'

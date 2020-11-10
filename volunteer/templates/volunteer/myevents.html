@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<title>My schedule</title>
+<title>My events</title>
 
 
 <h1>My Upcoming Events: </h1>
@@ -14,7 +14,7 @@
             {% csrf_token %}
             <div class="flex-item" style="width:300px;height:300px">{{ event.event_title }}
                 <br>
-                <a href="{% url 'volunteer:detail' event.id %}">Click for details.</a>
+                <a href="{% url 'volunteer:detailmyevent' event.id %}">Click for details.</a>
                 <img src="{{ event.cover.url}}" alt="{{ event.title }}" style="width:128px;height:128px">
 
             </div>
@@ -34,7 +34,7 @@
         {% csrf_token %}
         <div class="flex-item" style="width:300px;height:300px">{{ event.event_title }}
             <br>
-            <a href="{% url 'volunteer:detail' event.id %}">Click for details.</a>
+            <a href="{% url 'volunteer:detailmyevent' event.id %}">Click for details.</a>
             <img src="{{ event.cover.url}}" alt="{{ event.title }}" style="width:128px;height:128px">
 
         </div>
