@@ -14,16 +14,10 @@ from taggit.managers import  TaggableManager
 
 class VolunteerEvent(models.Model):
 
-    # tags_choices =[
-    #     ('HOME_REPAIR', 'Home Repair'), 
-    #     ('BAKE_SALE', 'Bake Sale')
-    # ]
-
     event_title = models.CharField(max_length=45)
     event_datetime = models.DateTimeField(default=datetime.now)
     event_description = models.CharField(max_length=250)
     event_location = models.CharField(max_length=100, default="Rotunda Steps")
-    # event_tags = models.CharField(max_length=15, choices=tags_choices, null=True, blank=True)
     cover = models.ImageField(upload_to='images/', blank=False, null=False, default="stock/thomas.jpg")
     event_author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
