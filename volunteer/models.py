@@ -28,7 +28,8 @@ class VolunteerEvent(models.Model):
     event_author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        default=1
+        default=1,
+        related_name="events_written"
     )
     attending=models.ManyToManyField(User, related_name='events_attending')
     
