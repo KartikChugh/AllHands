@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, request
 from django.template import loader
 from django.views import generic
 from django.urls import reverse_lazy
@@ -46,13 +46,57 @@ class CreateVolunteerEventView(LoginRequiredMixin ,generic.CreateView):
     model = VolunteerEvent
     form_class = PostForm
     template_name = 'volunteer/createpost.html'
-    success_url = reverse_lazy('volunteer:createpost')
+    # success_url = reverse_lazy('volunteer:createpost')
+    def get_success_url(self):
+        return reverse_lazy('volunteer:createpost')
 
-    # model = VolunteerEvent
-    # template_name = 'volunteer/createpost.html'
-    # # fields = ['event_title', 'event_datetime', 'event_description', 'event_image']
-    # fields = ['event_title', 'event_description']
-    # success_url = reverse_lazy('volunteer:createpost') # use lazy to avoid circular import error
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests and instantiates blank versions of the form
+        and its inline formsets.
+        """
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        return self.render_to_response(
+            self.get_context_data(form=form))
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handles POST requests, instantiating a form instance and its inline
+        formsets with the passed POST variables and then checking them for
+        validity.
+        """
+        self.object = None
+        form_class = PostForm
+        form = self.get_form(form_class)
+
+        if (form.is_valid()):
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+
+    def form_valid(self, form):
+        """
+        Called if all forms are valid. Creates a Recipe instance along with
+        associated Ingredients and Instructions and then redirects to a
+        success page.
+        """
+
+        obj = form.save(commit=False)
+        obj.event_author = self.request.user
+        obj.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+
+    def form_invalid(self, form, articleimage_form, articletag_form,
+                        articlecategory_form):
+        """
+        Called if a form is invalid. Re-renders the context data with the
+        data-filled forms and errors.
+        """
+        return self.render_to_response(self.get_context_data(form=form))
 
 
 class EventBrowseView(LoginRequiredMixin ,generic.ListView):
