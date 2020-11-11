@@ -156,9 +156,18 @@ class MyScheduleView(LoginRequiredMixin, generic.ListView):
 
 
 
-class DetailView(LoginRequiredMixin ,generic.DetailView):
+class DetailView(LoginRequiredMixin, generic.DetailView):
     model = VolunteerEvent
     template_name = 'volunteer/detail.html'
+
+    def get_context_data(self, **kwargs):
+        event_id = self.kwargs['pk'] # the event being detailed
+        registered_events = self.request.user.events_attending.all()
+        registered = registered_events.filter(id=event_id).exists() # check if contained in user's events
+
+        context = super().get_context_data(**kwargs)
+        context['registered'] = registered
+        return context
 
 class EventDetailView(LoginRequiredMixin, generic.DetailView):
     model = VolunteerEvent
