@@ -64,6 +64,20 @@ class TestDetailView(TestCase):
         response = self.client.get(reverse("volunteer:detail", kwargs={'pk':event.pk}))
         self.assertEqual(response.status_code, 200)
 
+    def test_user_registered(self):
+        user = User.objects.create_user("Juliana," "juliana@dev.io", "some_pass")
+        self.client.force_login(user=user)
+
+        VolunteerEvent.objects.create(event_title='Fun Event', event_description='This event will be really fun', event_author=user)
+        event = VolunteerEvent.objects.get(event_title='Fun Event')
+        event.attending.set([user.pk])
+
+        response = self.client.get(reverse("volunteer:detail", kwargs={'pk':event.pk}))
+        self.assertTrue(response.context['registered'])
+
+    def test_user_unregistered(self):
+        user = User.objects.create_user("Juliana," "juliana@dev.io", "some_pass")
+        self.client.force_login(user=user)
 
         VolunteerEvent.objects.create(event_title='Fun Event', event_description='This event will be really fun', event_author=user)
         event = VolunteerEvent.objects.get(event_title='Fun Event')
