@@ -14,6 +14,13 @@
     <p>{{object.event_datetime}}</p>
     <h1>Description: </h1>
     <p>{{object.event_description }}</p>
+    <h1>Location: </h1>
+    <p>{{object.event_location}}</p>
+    <h1>Tags: </h1>
+    <p> {% for o in object.tags.all %}
+        <p>{{o}}</p>
+        {% endfor %}
+    </p>
     </div>
     <div class="col-sm">
         <img src="{{ object.cover.url}}" alt="{{ object.title }}" style="width:500px;height:400px">

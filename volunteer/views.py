@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.conf import settings
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
 
 
 from .forms import PostForm # new
@@ -59,7 +60,9 @@ class EventBrowseView(LoginRequiredMixin ,generic.ListView):
     context_object_name = 'event_list'
 
     def get_queryset(self):
-        return VolunteerEvent.objects.order_by('-event_title')
+        # return VolunteerEvent.objects.order_by('-event_title')
+
+        return VolunteerEvent.objects.filter(event_datetime__gt=timezone.now())
 
 
 def signup(request, pk):
