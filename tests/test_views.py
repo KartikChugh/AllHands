@@ -47,3 +47,14 @@ class TestMyScheduleView(TestCase):
         self.client.force_login(user=user)
         response = self.client.get(reverse("volunteer:myschedule"))
         self.assertEqual(response.status_code, 200)
+
+class TestDetailView(TestCase):
+    def test_anonymous_cannot_see_page(self):
+        response = self.client.get(reverse("volunteer:detail", kwargs={'pk':1}))
+        self.assertRedirects(response, "/?next=/volunteer/events/1")
+
+    # def test_authenticated_user_can_see_page(self):
+    #     user = User.objects.create_user("Juliana," "juliana@dev.io", "some_pass")
+    #     self.client.force_login(user=user)
+    #     response = self.client.get(reverse("volunteer:detail", kwargs={'pk':1}))
+    #     self.assertEqual(response.status_code, 200)

@@ -122,6 +122,17 @@ class EventBrowseView(LoginRequiredMixin ,generic.ListView):
 
         return VolunteerEvent.objects.filter(event_datetime__gt=timezone.now())
 
+def unregister(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
+    if (request.method == 'POST'):
+        VolunteerEvent.objects.get(pk=pk).attending.remove(request.user)
+
+        return HttpResponseRedirect(reverse_lazy('volunteer:myschedule'))
+    else: 
+        return render(request, 'volunteer/eventbrowse.html')
+
 
 def signup(request, pk):
     if not request.user.is_authenticated:
@@ -156,9 +167,18 @@ class MyScheduleView(LoginRequiredMixin, generic.ListView):
 
 
 
-class DetailView(LoginRequiredMixin ,generic.DetailView):
+class DetailView(LoginRequiredMixin, generic.DetailView):
     model = VolunteerEvent
     template_name = 'volunteer/detail.html'
+
+    def get_context_data(self, **kwargs):
+        event_id = self.kwargs['pk'] # the event being detailed
+        registered_events = self.request.user.events_attending.all()
+        registered = registered_events.filter(id=event_id).exists() # check if contained in user's events
+
+        context = super().get_context_data(**kwargs)
+        context['registered'] = registered
+        return context
 
 class EventDetailView(LoginRequiredMixin, generic.DetailView):
     model = VolunteerEvent
