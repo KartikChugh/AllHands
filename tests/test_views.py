@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
+from volunteer.models import VolunteerEvent
 
 from django.contrib.auth.models import User
 
@@ -53,8 +54,13 @@ class TestDetailView(TestCase):
         response = self.client.get(reverse("volunteer:detail", kwargs={'pk':1}))
         self.assertRedirects(response, "/?next=/volunteer/events/1")
 
-    # def test_authenticated_user_can_see_page(self):
+    # def test_registered(self):
     #     user = User.objects.create_user("Juliana," "juliana@dev.io", "some_pass")
     #     self.client.force_login(user=user)
-    #     response = self.client.get(reverse("volunteer:detail", kwargs={'pk':1}))
+
+    #     VolunteerEvent.objects.create(event_title='Fun Event', event_description='This event will be really fun')
+    #     event = VolunteerEvent.objects.filter(event_title='Fun Event').first()
+    #     event.attending.set([user.pk])
+
+    #     response = self.client.get(reverse("volunteer:detail", kwargs={'pk':0}))
     #     self.assertEqual(response.status_code, 200)
