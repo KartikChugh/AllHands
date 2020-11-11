@@ -20,9 +20,10 @@ class VolunteerEvent(models.Model):
     event_location = models.CharField(max_length=100, default="Rotunda Steps")
     cover = models.ImageField(upload_to='images/', blank=False, null=False, default="stock/thomas.jpg")
     event_author = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        User,
         on_delete=models.CASCADE,
-        default=1
+        default=1,
+        related_name="events_written"
     )
     attending=models.ManyToManyField(User, related_name='events_attending')
     

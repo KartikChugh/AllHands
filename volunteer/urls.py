@@ -11,5 +11,8 @@ urlpatterns = [
     path('volunteer/post/', views.CreateVolunteerEventView.as_view(), name='createpost'),
     path('volunteer/signup/<pk>', views.signup, name='signup'),
     path('volunteer/events/<pk>', views.DetailView.as_view(), name='detail'),
+    path('volunteer/myevents/', views.myevents, name='myevents'),
+    path('volunteer/myevents/<pk>', views.EventDetailView.as_view(), name='detailmyevent'),
+
     # path('volunteer/eventfinder/', views.eventfinder, name='eventfinder')
 ]
