@@ -3,31 +3,41 @@
 
 {% block content %}
 
-<form action="{% url 'volunteer:signup' object.id %}" method="post"> 
-    {% csrf_token %}
-   
-    <div class="row">
+<div class="row">
     <div class="col-sm">
-    <h1>Title: </h1>
-    <p>{{object.event_title}}</p>
-    <h1>Date: </h1>
-    <p>{{object.event_datetime}}</p>
-    <h1>Description: </h1>
-    <p>{{object.event_description }}</p>
-    <h1>Location: </h1>
-    <p>{{object.event_location}}</p>
-    <h1>Tags: </h1>
-    <p> {% for o in object.tags.all %}
-        <p>{{o}}</p>
-        {% endfor %}
-    </p>
+        <h1>Title: </h1>
+        <p>{{object.event_title}}</p>
+        <h1>Date: </h1>
+        <p>{{object.event_datetime}}</p>
+        <h1>Description: </h1>
+        <p>{{object.event_description }}</p>
+        <h1>Location: </h1>
+        <p>{{object.event_location}}</p>
+        <h1>Tags: </h1>
+        <p> {% for o in object.tags.all %}
+            <p>{{o}}</p>
+            {% endfor %}
+        </p>
     </div>
     <div class="col-sm">
         <img src="{{ object.cover.url}}" alt="{{ object.title }}" style="width:500px;height:400px">
     </div>
-    </div>
+</div>
 
-<input type="Submit" class="btn btn-outline-dark" value="Sign up" > 
+{% if not registered %}
+
+    <form action="{% url 'volunteer:signup' object.id %}" method="post"> 
+        {% csrf_token %}
+        <input type="Submit" class="btn btn-outline-dark" value="Sign up"> 
+    </form>
+
+{% else %}
+<form action="{% url 'volunteer:unregister' object.id %}" method="post"> 
+    {% csrf_token %}
+    <input type="Submit" class="btn btn-outline-dark" value="Unregister"> 
 </form>
+{% endif %}
+
 <div style="margin-bottom:20%"></div>
+
 {% endblock %}
