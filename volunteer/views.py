@@ -122,6 +122,17 @@ class EventBrowseView(LoginRequiredMixin ,generic.ListView):
 
         return VolunteerEvent.objects.filter(event_datetime__gt=timezone.now())
 
+def unregister(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
+    if (request.method == 'POST'):
+        VolunteerEvent.objects.get(pk=pk).attending.remove(request.user)
+
+        return HttpResponseRedirect(reverse_lazy('volunteer:myschedule'))
+    else: 
+        return render(request, 'volunteer/eventbrowse.html')
+
 
 def signup(request, pk):
     if not request.user.is_authenticated:
