@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',  # <--
     'allauth.socialaccount.providers.google',  # <--
     "taggit",
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -148,14 +149,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_ROOT = os.path.join(BASE_DIR, 'static').replace('\\', '/')
-
 STATIC_URL = '/static/'
 
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/images/'
+
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'media').replace('\\','/'),
+    os.path.join(BASE_DIR, 'static'),
 )
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
 # Activate Django-Heroku.
 try:
     # Configure Django App for Heroku.
@@ -186,3 +191,13 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+AWS_ACCESS_KEY_ID = 'AKIAZ6L56B7NQCBVAJ66'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'microwave-bucket'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_HOST = "s3.us-east-2.amazonaws.com"
+AWS_S3_REGION_NAME = "us-east-2"
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
