@@ -82,14 +82,14 @@
         {% endblock %}
 
     {% else %}
-        <h1>You're not signed in!</h1>
+        <h2>You're not signed in!</h2>
         <a href="{% provider_login_url 'google' %}">Login with Google</a>
     {% endif %}
 
    
 </div>
 
-    <footer class="footer" style="position: static; padding-top:30px;"> 
+    <footer class="footer" style="position: static; padding-top:30px; "> 
       <div class="container">
         <span class="text-light">© 2020 microWave</span>
       </div>

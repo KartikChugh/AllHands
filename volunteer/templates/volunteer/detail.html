@@ -5,20 +5,21 @@
 
 <div class="row">
     <div class="col-sm">
-        <h1>Title: </h1>
+        <h3>Title: </h3>
         <p>{{object.event_title}}</p>
-        <h1>Date: </h1>
+        <h3>Date: </h3>
         <p>{{object.event_datetime}}</p>
-        <h1>Description: </h1>
+        <h3>Description: </h3>
         <p>{{object.event_description }}</p>
-        <h1>Location: </h1>
+        <h3>Location: </h3>
         <p>{{object.event_location}}</p>
-        <h1>Tags: </h1>
+        <h3>Tags: </h3>
         <p> {% for o in object.tags.all %}
             <p>{{o}}</p>
             {% endfor %}
         </p>
     </div>
+
     <div class="col-sm">
         <img src="{{ object.cover.url}}" alt="{{ object.title }}" style="width:500px;height:400px">
     </div>
