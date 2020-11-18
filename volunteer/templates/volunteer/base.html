@@ -63,6 +63,7 @@
         </div>
         
         {% if user.is_authenticated %}
+            {{user.email  }}
         <a id="logout" href="/accounts/logout" class="btn btn-success">Logout</a>
       {% else %}
         <a id="google_login" href="/accounts/google/login" class="btn btn-success">
