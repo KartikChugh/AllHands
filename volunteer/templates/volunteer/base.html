@@ -1,5 +1,7 @@
 {% load static %}
 {% load socialaccount %}
+{% load i18n %}
+
 <!DOCTYPE html>
 
 
@@ -61,18 +63,16 @@
           </ul>
           
         </div>
-        
-        {% if user.is_authenticated %}
-            {{user.email  }}
-        <a id="logout" href="/accounts/logout" class="btn btn-success">Logout</a>
-      {% else %}
-        <a id="google_login" href="/accounts/google/login" class="btn btn-success">
-          Sign in with Google
-        </a>
-      {% endif %}
+        {{user.email  }}
 
+        <form method="post" action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+            {% endif %}
+            <button type="submit">{% trans 'Sign Out' %}</button>
+        </form>
     </nav>
-    
 <div>
     {#    Check to make sure that the user is authenticated#}
     {% if user.is_authenticated %}
