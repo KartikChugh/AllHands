@@ -35,8 +35,8 @@ def myschedule(request):
     me=request.user.events_attending.all()
 
     ids_past = [event.id for event in me if event.is_past()]
-    events_past = me.filter(id__in=ids_past)
-    events_upcoming = me.exclude(id__in=ids_past)
+    events_past = me.filter(id__in=ids_past).order_by('event_datetime')
+    events_upcoming = me.exclude(id__in=ids_past).order_by('event_datetime')
 
     context={'events_upcoming': events_upcoming, 'events_past': events_past}
     print("CONTEXT", context)
@@ -49,8 +49,8 @@ def myevents(request):
     me=request.user.events_written.all()
 
     ids_past = [event.id for event in me if event.is_past()]
-    events_past = me.filter(id__in=ids_past)
-    events_upcoming = me.exclude(id__in=ids_past)
+    events_past = me.filter(id__in=ids_past).order_by('event_datetime')
+    events_upcoming = me.exclude(id__in=ids_past).order_by('event_datetime')
 
     context={'events_upcoming': events_upcoming, 'events_past': events_past}
     print("CONTEXT", context)
@@ -125,8 +125,7 @@ class EventBrowseView(LoginRequiredMixin ,generic.ListView):
 
     def get_queryset(self):
         # return VolunteerEvent.objects.order_by('-event_title')
-
-        return VolunteerEvent.objects.filter(event_datetime__gt=timezone.now())
+        return VolunteerEvent.objects.filter(event_datetime__gt=timezone.now()).order_by('event_datetime')
 
 def unregister(request, pk):
     if not request.user.is_authenticated:
