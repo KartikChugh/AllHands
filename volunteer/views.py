@@ -61,6 +61,8 @@ class CreateVolunteerEventView(LoginRequiredMixin ,generic.CreateView):
     form_class = PostForm
     template_name = 'volunteer/createpost.html'
     # success_url = reverse_lazy('volunteer:createpost')
+
+
     def get_success_url(self):
         return reverse_lazy('volunteer:createpost')
 
@@ -110,8 +112,7 @@ class CreateVolunteerEventView(LoginRequiredMixin ,generic.CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-    def form_invalid(self, form, articleimage_form, articletag_form,
-                        articlecategory_form):
+    def form_invalid(self, form):
         """
         Called if a form is invalid. Re-renders the context data with the
         data-filled forms and errors.

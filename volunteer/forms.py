@@ -1,4 +1,6 @@
 from django import forms
+from django.utils import timezone
+
 from .models import VolunteerEvent
 
 
@@ -24,3 +26,21 @@ class PostForm(forms.ModelForm):
             'cover':('Add a photo/flyer (optional)')
         }
         required = {'cover': ("False") }
+
+    # this function will be used for the validation
+    def clean(self):
+
+        # data from the form is fetched using super function
+        super(PostForm, self).clean()
+
+        # extract the username and text field from the data
+        date_entered = self.cleaned_data.get('event_datetime')
+
+        # conditions to be met for the username length
+        if date_entered < timezone.now():
+            self._errors['event_datetime'] = self.error_class([
+                'Please enter a date in the future'])
+
+
+        # return any errors if found
+        return self.cleaned_data
