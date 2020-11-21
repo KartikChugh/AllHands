@@ -4,7 +4,8 @@
 
 {% block content %}
 <div class="col-md-6 my-auto">
-<h2>Post Volunteer Opportunity</h2>
+  <br>
+<h2 style="font-family: 'Gill Sans', sans-serif; margin-left: 25px">Post Volunteer Event</h2>
 </div>
 
   <div class="container">
@@ -12,22 +13,22 @@
       <div class="col-md-6 mx-auto">
         <div class="card card-body mt-5" style="background-color:lightblue">
           <form method="post" enctype="multipart/form-data">
-            <h2 style="text-align:center;">Add New Event</h2>
+            <h3 style="text-align:center; font-family: 'Gill Sans', sans-serif;">Add New Event</h3>
             {% csrf_token %}
             {% for field in form %}
             <div class="fieldWrapper">
                 {{ field.errors }}
-                <h6>{{ field.label_tag }}</h6> 
-                <p>{{ field }}</p>
+                <h6 style="font-family: 'Gill Sans', sans-serif;">{{ field.label_tag }}</h6> 
+                <p style="font-family: 'Gill Sans', sans-serif;">{{ field }}</p>
                 {% if field.help_text %}
-                  <p class="help">{{ field.help_text|safe }}</p>
+                  <p class="help" style="font-family: 'Gill Sans', sans-serif;">{{ field.help_text|safe }}</p>
                 <br>
             {% endif %}
              </div>
 {% endfor %}
             <!-- make the form  prettier here -->
           {#      <button type="submit">Submit New Post</button>#}
-            <input type="submit" value="Post!" class="btn btn-primary" style="background-color:rgb(253, 253, 253)">
+            <input type="submit" value="Post!" class="btn btn-primary" style="background-color:rgb(253, 253, 253); font-family: 'Gill Sans', sans-serif;">
           </form>
         </div>
       </div>
