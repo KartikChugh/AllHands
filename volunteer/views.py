@@ -100,8 +100,14 @@ class CreateVolunteerEventView(LoginRequiredMixin ,generic.CreateView):
 
         obj = form.save(commit=False)
         obj.event_author = self.request.user
+        title = obj.event_title.upper()
+        letter = title[0]
+        # print(obj.cover)
+        if (letter.isalpha() and obj.cover.__str__() == "stock/thomas.jpg"):
+            filename = "stock/letters/TEAL-LETTER-" + letter + "-BCZ.png"
+            obj.cover = filename
         obj.save()
-        return HttpResponseRedirect(self.get_success_url())
+        return HttpResponseRedirect(reverse_lazy('volunteer:myevents'))
 
 
     def form_invalid(self, form, articleimage_form, articletag_form,
