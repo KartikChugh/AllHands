@@ -20,14 +20,20 @@
      </p>
 
  {% else %}
-    <div class="col-md-6 my-auto">
-      <br>
-      <h2>Welcome to our volunteer site!</h2>
-      <br>
-      <a id="google_login" href="/accounts/google/login" class="btn btn-success">
-          Sign in with Google to continue
-        </a>
-    </div>
+ <div class="container">
+   <div class="row">
+     <div class="col-md-6 mx-auto">
+       <div class="card card-body text-center mt-5">
+        <br>
+        <h2 style="font-family: 'Gill Sans', sans-serif; text-align: center;">Welcome to our volunteer site!</h2>
+        <br>
+        <a id="google_login" href="/accounts/google/login" class="btn btn-success" style="font-family: 'Gill Sans', sans-serif; text-align: center;">
+            Sign in with Google to continue
+          </a>
+       </div>
+     </div>
+   </div>
+ </div>
   {% endif %}
 </body>
 </html>
