@@ -7,6 +7,7 @@ from django.conf import settings
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
+from django.urls import reverse
 
 
 from .forms import PostForm # new
@@ -107,8 +108,7 @@ class CreateVolunteerEventView(LoginRequiredMixin ,generic.CreateView):
             filename = "stock/letters/TEAL-LETTER-" + letter + "-BCZ.png"
             obj.cover = filename
         obj.save()
-        return HttpResponseRedirect(reverse_lazy('volunteer:myevents'))
-
+        return HttpResponseRedirect(reverse('volunteer:detailmyevent' , args=[obj.id]))
 
     def form_invalid(self, form, articleimage_form, articletag_form,
                         articlecategory_form):
