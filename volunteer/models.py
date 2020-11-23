@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django import forms
-from datetime import datetime
+import datetime
 
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
@@ -12,10 +12,17 @@ from django.utils import timezone
 
 from taggit.managers import  TaggableManager
 
+# Returns a datetime corresponding to tomorrow, 8AM
+def get_tomorrow_morning():
+    now = datetime.datetime.now()
+    tmrw = now + datetime.timedelta(days=1)
+    tmrw = tmrw.replace(hour=8, minute=0, second=0, microsecond=0)
+    return tmrw
+
 class VolunteerEvent(models.Model):
 
     event_title = models.CharField(max_length=45)
-    event_datetime = models.DateTimeField(default=datetime.now)
+    event_datetime = models.DateTimeField(default=get_tomorrow_morning)
     event_description = models.CharField(max_length=250)
     event_location = models.CharField(max_length=100, default="Rotunda Steps")
     cover = models.ImageField(upload_to='images/', blank=False, null=False, default="stock/thomas.jpg")
@@ -36,4 +43,6 @@ class VolunteerEvent(models.Model):
      #   return reverse('event_detail', kwargs={'slug': self.slug})
     def is_past(self):
         return timezone.now() > self.event_datetime
+
+    
 
