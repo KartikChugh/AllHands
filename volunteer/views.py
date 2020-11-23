@@ -109,7 +109,7 @@ class CreateVolunteerEventView(LoginRequiredMixin ,generic.CreateView):
             filename = "stock/letters/TEAL-LETTER-" + letter + "-BCZ.png"
             obj.cover = filename
         obj.save()
-        return HttpResponseRedirect(self.get_success_url())
+        return HttpResponseRedirect(reverse_lazy('volunteer:myevents'))
 
 
     def form_invalid(self, form):
