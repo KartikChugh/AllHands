@@ -37,8 +37,8 @@ def myschedule(request):
     me=request.user.events_attending.all()
 
     ids_past = [event.id for event in me if event.is_past()]
-    events_past = me.filter(id__in=ids_past)
-    events_upcoming = me.exclude(id__in=ids_past)
+    events_past = me.filter(id__in=ids_past).order_by('event_datetime')
+    events_upcoming = me.exclude(id__in=ids_past).order_by('event_datetime')
 
     context={'events_upcoming': events_upcoming, 'events_past': events_past}
     print("CONTEXT", context)
@@ -51,8 +51,8 @@ def myevents(request):
     me=request.user.events_written.all()
 
     ids_past = [event.id for event in me if event.is_past()]
-    events_past = me.filter(id__in=ids_past)
-    events_upcoming = me.exclude(id__in=ids_past)
+    events_past = me.filter(id__in=ids_past).order_by('event_datetime')
+    events_upcoming = me.exclude(id__in=ids_past).order_by('event_datetime')
 
     context={'events_upcoming': events_upcoming, 'events_past': events_past}
     print("CONTEXT", context)
@@ -63,6 +63,8 @@ class CreateVolunteerEventView(LoginRequiredMixin, generic.CreateView):
     form_class = PostForm
     template_name = 'volunteer/createpost.html'
     # success_url = reverse_lazy('volunteer:createpost')
+
+
     def get_success_url(self):
         return reverse_lazy('volunteer:createpost')
 
@@ -116,8 +118,7 @@ class CreateVolunteerEventView(LoginRequiredMixin, generic.CreateView):
         obj.save()
         return HttpResponseRedirect(reverse('volunteer:detailmyevent' , args=[obj.id]))
 
-    def form_invalid(self, form, articleimage_form, articletag_form,
-                        articlecategory_form):
+    def form_invalid(self, form):
         """
         Called if a form is invalid. Re-renders the context data with the
         data-filled forms and errors.
@@ -131,8 +132,7 @@ class EventBrowseView(LoginRequiredMixin ,generic.ListView):
 
     def get_queryset(self):
         # return VolunteerEvent.objects.order_by('-event_title')
-
-        return VolunteerEvent.objects.filter(event_datetime__gt=timezone.now())
+        return VolunteerEvent.objects.filter(event_datetime__gt=timezone.now()).order_by('event_datetime')
 
 def unregister(request, pk):
     if not request.user.is_authenticated:
