@@ -37,40 +37,40 @@
           <ul class="navbar-nav mr-auto">
 
             <li class="nav-item active">
-              <a class="nav-link" href="/volunteer">Home<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/volunteer" style="font-family: 'Gill Sans', sans-serif;">Home<span class="sr-only">(current)</span></a>
             </li>
 
             <li class="nav-item dropdown active">
-              <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-family: 'Gill Sans', sans-serif;">
                 For Volunteers
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/volunteer/schedule">My Schedule</a>
-                <a class="dropdown-item" href="/volunteer/events">Browse Events</a>
+                <a class="dropdown-item" href="/volunteer/events" style="font-family: 'Gill Sans', sans-serif;">Browse Volunteer Events</a>
+                <a class="dropdown-item" href="/volunteer/schedule" style="font-family: 'Gill Sans', sans-serif;">My Event Schedule</a>
               </div>
             </li>
 
             <li class="nav-item dropdown active">
-              <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-family: 'Gill Sans', sans-serif;">
                 For Organizers
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/volunteer/post">Post an Upcoming Event</a>
-                  <a class="dropdown-item" href="/volunteer/myevents">My Posted Events</a>
+                <a class="dropdown-item" href="/volunteer/post" style="font-family: 'Gill Sans', sans-serif;">Post Volunteer Events</a>
+                  <a class="dropdown-item" href="/volunteer/myevents" style="font-family: 'Gill Sans', sans-serif;">My Posted Events</a>
               </div>
             </li>
             
           </ul>
           
         </div>
-        {{user.email  }}
+        {{user.email }} &nbsp;&nbsp;&nbsp;
 
         <form method="post" action="{% url 'account_logout' %}">
             {% csrf_token %}
             {% if redirect_field_value %}
                 <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
             {% endif %}
-            <button type="submit" class="btn btn-success">{% trans 'Sign Out' %}</button>
+            <button type="submit" class="btn btn-outline-danger btn-sm" style="font-family: 'Gill Sans', sans-serif;">{% trans 'Sign Out' %}</button>
         </form>
     </nav>
 <div>
@@ -83,7 +83,7 @@
         {% endblock %}
 
     {% else %}
-        <h2>You're not signed in!</h2>
+        <h2 style="font-family: 'Gill Sans', sans-serif;">You're not signed in!</h2>
         <a href="{% provider_login_url 'google' %}">Login with Google</a>
     {% endif %}
 
@@ -92,7 +92,7 @@
 
     <footer class="footer" style="position: static; padding-top:30px; "> 
       <div class="container">
-        <span class="text-light">© 2020 microWave</span>
+        <span class="text-light" style="font-family: 'Gill Sans', sans-serif;">© 2020 microWave</span>
       </div>
     </footer>
 

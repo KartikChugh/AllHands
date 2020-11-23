@@ -3,7 +3,43 @@
 
 {% block content %}
 
-<form action="{% url 'volunteer:signup' object.id %}" method="post"> 
+
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-body" style="background-color: rgb(186, 226, 226);">
+                <br>
+                <h2 style="font-family: cursive; text-align: center;">{{object.event_title}}</h3>
+                <br>
+                <h5 style="font-family: 'Gill Sans', sans-serif;">Date: </h3>
+                <p style="font-family: 'Gill Sans', sans-serif;">{{object.event_datetime}}</p>
+                <h5 style="font-family: 'Gill Sans', sans-serif;">Description: </h3>
+                <p style="font-family: 'Gill Sans', sans-serif;">{{object.event_description }}</p>
+                <h5 style="font-family: 'Gill Sans', sans-serif;">Location: </h3>
+                <p style="font-family: 'Gill Sans', sans-serif;">{{object.event_location}}</p>
+                <h5 style="font-family: 'Gill Sans', sans-serif;">Tags: </h3>
+                <p style="font-family: 'Gill Sans', sans-serif;"> 
+                    {% for o in object.tags.all %}
+                    <p style="font-family: 'Gill Sans', sans-serif;">{{o}}</p>
+                    {% endfor %}
+                <h5 style="font-family: 'Gill Sans', sans-serif;">Volunteers Attending: </h5>
+                    <p> {% for user in object.attending.all %}
+                        <p style="font-family: 'Gill Sans', sans-serif;">{{user.username}}</p>
+                        {% endfor %}
+                    </p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <br>
+            <br>
+            <br>
+            <img src="{{ object.cover.url}}" alt="{{ object.title }}" style="width:500px;height:400px">
+        </div>
+    </div>
+</div>
+
+<!-- <form action="{% url 'volunteer:signup' object.id %}" method="post"> 
     {% csrf_token %}
    
     <div class="row">
@@ -35,6 +71,6 @@
     </div>
 
 {#<input type="Submit" class="btn btn-outline-dark" value="Sign up" > #}
-</form>
+</form> -->
 <div style="margin-bottom:20%"></div>
 {% endblock %}

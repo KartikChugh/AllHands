@@ -3,41 +3,75 @@
 
 {% block content %}
 
-<div class="row">
-    <div class="col-sm">
-        <h3>Title: </h3>
-        <p>{{object.event_title}}</p>
-        <h3>Date: </h3>
-        <p>{{object.event_datetime}}</p>
-        <h3>Description: </h3>
-        <p>{{object.event_description }}</p>
-        <h3>Location: </h3>
-        <p>{{object.event_location}}</p>
-        <h3>Tags: </h3>
-        <p> {% for o in object.tags.all %}
-            <p>{{o}}</p>
-            {% endfor %}
-        </p>
-    </div>
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-md-6" >
+            <div class="card card-body" style="background-color: rgb(186, 226, 226);">
 
-    <div class="col-sm">
-        <img src="{{ object.cover.url}}" alt="{{ object.title }}" style="width:500px;height:400px">
+            
+                <br>
+                <h2 style="font-family: cursive; text-align: center;">{{object.event_title}}</h3>
+                <br>
+                <h5 style="font-family: 'Gill Sans', sans-serif;">Date: </h3>
+                <p style="font-family: 'Gill Sans', sans-serif;">{{object.event_datetime}}</p>
+                <h5 style="font-family: 'Gill Sans', sans-serif;">Description: </h3>
+                <p style="font-family: 'Gill Sans', sans-serif;">{{object.event_description }}</p>
+                <h5 style="font-family: 'Gill Sans', sans-serif;">Location: </h3>
+                <p style="font-family: 'Gill Sans', sans-serif;">{{object.event_location}}</p>
+                <h5 style="font-family: 'Gill Sans', sans-serif;">Tags: </h3>
+                <p style="font-family: 'Gill Sans', sans-serif;"> {% for o in object.tags.all %}
+                    <p style="font-family: 'Gill Sans', sans-serif;">{{o}}</p>
+                    {% endfor %}
+                </p style="font-family: 'Gill Sans', sans-serif;">
+                {% if not registered %}
+
+                <form action="{% url 'volunteer:signup' object.id %}" method="post"> 
+                    {% csrf_token %}
+                    <input type="Submit" class="btn btn-outline-dark" value="Sign up" style="font-family: 'Gill Sans', sans-serif;"> 
+                </form>
+            
+                {% else %}
+                <form action="{% url 'volunteer:unregister' object.id %}" method="post"> 
+                    {% csrf_token %}
+                    <input type="Submit" class="btn btn-outline-dark" value="Unregister" style="font-family: 'Gill Sans', sans-serif;"> 
+                </form>
+                {% endif %}
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <br>
+            <br>
+            <br>
+            <img src="{{ object.cover.url}}" alt="{{ object.title }}" style="width:500px;height:400px">
+        </div>
     </div>
+    <!-- <div class="row">
+        <div class="col-md-6">
+            {% if not registered %}
+
+            <form action="{% url 'volunteer:signup' object.id %}" method="post"> 
+                {% csrf_token %}
+                <input type="Submit" class="btn btn-outline-dark" value="Sign up"> 
+            </form>
+        
+        {% else %}
+        <form action="{% url 'volunteer:unregister' object.id %}" method="post"> 
+            {% csrf_token %}
+            <input type="Submit" class="btn btn-outline-dark" value="Unregister"> 
+        </form>
+        {% endif %}
+        </div>
+    </div> -->
 </div>
 
-{% if not registered %}
 
-    <form action="{% url 'volunteer:signup' object.id %}" method="post"> 
-        {% csrf_token %}
-        <input type="Submit" class="btn btn-outline-dark" value="Sign up"> 
-    </form>
 
-{% else %}
-<form action="{% url 'volunteer:unregister' object.id %}" method="post"> 
-    {% csrf_token %}
-    <input type="Submit" class="btn btn-outline-dark" value="Unregister"> 
-</form>
-{% endif %}
 
 <div style="margin-bottom:20%"></div>
 
