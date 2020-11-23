@@ -21,7 +21,7 @@ class PostForm(forms.ModelForm):
         help_texts = {
             'event_title': ('What is your event called?'),
             'event_description':('What will volunteers be doing?'),
-            'event_datetime': ('Format: yyyy-mm-dd hh:mm:ss'),
+            'event_datetime': ('When is your event?'),
             'event_location':('Where is your event?'),
             'cover':('Add a photo/flyer (optional)')
         }
