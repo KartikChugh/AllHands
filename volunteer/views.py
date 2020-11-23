@@ -8,6 +8,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 from django.urls import reverse
+from django.forms import DateTimeInput
 
 
 from .forms import PostForm # new
@@ -57,13 +58,18 @@ def myevents(request):
     print("CONTEXT", context)
     return render(request, 'volunteer/myevents.html', context)
 
-class CreateVolunteerEventView(LoginRequiredMixin ,generic.CreateView):
+class CreateVolunteerEventView(LoginRequiredMixin, generic.CreateView):
     model = VolunteerEvent
     form_class = PostForm
     template_name = 'volunteer/createpost.html'
     # success_url = reverse_lazy('volunteer:createpost')
     def get_success_url(self):
         return reverse_lazy('volunteer:createpost')
+
+    def get_form(self, form_class):
+        form = super(CreateVolunteerEventView, self).get_form(form_class)
+        form.fields['event_datetime'].widget = DateTimeInput(attrs={'type': 'datetime-local'})
+        return form
 
     def get(self, request, *args, **kwargs):
         """
