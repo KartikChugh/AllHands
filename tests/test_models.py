@@ -5,6 +5,8 @@ from django.contrib.auth.models import User # Required to assign User as a borro
 from django.utils import timezone
 import datetime
 
+from volunteer.models import get_tomorrow_morning
+
 
 class VolunteerEventModelTest(TestCase):
     @classmethod
@@ -49,10 +51,11 @@ class VolunteerEventModelTest(TestCase):
         max_length = author._meta.get_field('event_description').max_length
         self.assertEqual(max_length, 250)
 
-    def test_default_datetime(self):
+    def test_default_datetime_tmrw(self):
         author = VolunteerEvent.objects.get(id=1)
-        expected_object_name = timezone.now().date()
-        self.assertEqual(expected_object_name, author.event_datetime.date())
+        now = timezone.now().date()
+        self.assertNotEqual(now, author.event_datetime.date())
+        self.assertEqual(now.replace(day=now.day+1), author.event_datetime.date())
 
     def test_event_fields(self):
         title = 'title'
