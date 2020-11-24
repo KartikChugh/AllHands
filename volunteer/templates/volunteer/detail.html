@@ -1,8 +1,10 @@
 {% extends './base.html' %}
 
 {% load social_share %}
+{% load static %}
+  
 {% block content %}
-
+<link rel="stylesheet" type="text/css" href="{% static 'volunteer/social_share.css' %}">  
 
 <div class="container">
     <br>
@@ -39,8 +41,19 @@
                 </form>
                 {% endif %}
                 <br>
-                {% post_to_twitter "Join me in volunteering for {{object.event_title}}!" "" "Share on Twitter" %}
-                {% send_email "Volunteer Event: {{object.event_title}}" "Check out an event I've signed up for!" "" "Share via Email" %}
+                <br>
+                <div>
+                    <h6>Share the Event on Social Media!</h6>
+                    <button type="button" class="btn btn-primary btn-sm">
+                        {% post_to_twitter "Join me in volunteering for {{object.event_title}} ({{object.event_datetime}}) @ {{object.event_location}}" "" "&#128038; Write Tweet" %}
+                    </button>
+                    <button type="button" class="btn btn-info btn-sm">
+                        {% post_to_facebook "" "&#128077; Post on Facebook" %}
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm">
+                        {% send_email "Volunteering: {{object.event_title}}" "Hey, just wanted to share a volunteer event I've signed up for! It'll be at {{object.event_location}} on {{object.event_datetime}}. Check out the link for more info!" "" "&#128231; Send Email" %}
+                    </button>
+                </div>
                 <br>
                 <br>
                 <br>
