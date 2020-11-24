@@ -23,7 +23,7 @@ class PostForm(forms.ModelForm):
             'event_description':('What will volunteers be doing?'),
             'event_datetime': ('When is your event?'),
             'event_location':('Where is your event?'),
-            'cover':('Add a photo/flyer (optional)')
+            'cover':('Optional: Add a photo/flyer (1:1 ratio preferred)')
         }
         required = {'cover': ("False") }
 
