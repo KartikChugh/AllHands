@@ -3,7 +3,9 @@ project-2-24 created by GitHub Classroom
 
 We are team microWave and this is our Micro-Volunteering sign-up/event posting platform.
 
-You can sign up to be a volunteer or post volunteer events for others to sign up for (or both).
+To view our site, check out our Heroku environment (View deployment for microwave-django).
+
+You will be asked to log in using a Google account. Once you log in, you can sign up to be a volunteer or post volunteer events for others to sign up for (or both).
 
 Under the “For Volunteers” tab, you can find and sign up for events on the “Browse Volunteer Events” page and see events you have signed up for on the “My Event Schedule" page.
 
