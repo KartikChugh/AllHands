@@ -25,7 +25,7 @@
                     {% endfor %}
                 <h5 style="font-family: 'Gill Sans', sans-serif;">Volunteers Attending: </h5>
                     <p> {% for user in object.attending.all %}
-                        <p style="font-family: 'Gill Sans', sans-serif;">{{user.username}}</p>
+                        <li style="font-family: 'Gill Sans', sans-serif;">{{user.username}}:  {{user.email }} </li>
                         {% endfor %}
                     </p>
             </div>
