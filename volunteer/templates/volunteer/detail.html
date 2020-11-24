@@ -31,13 +31,13 @@
 
                 <form action="{% url 'volunteer:signup' object.id %}" method="post"> 
                     {% csrf_token %}
-                    <input type="Submit" class="btn btn-dark" value="Sign Up" style="font-family: 'Gill Sans', sans-serif;"> 
+                    <input type="Submit" class="btn btn-dark btn-block" value="Sign Up" style="font-family: 'Gill Sans', sans-serif;"> 
                 </form>
             
                 {% else %}
                 <form action="{% url 'volunteer:unregister' object.id %}" method="post"> 
                     {% csrf_token %}
-                    <input type="Submit" class="btn btn-outline-dark" value="Unregister" style="font-family: 'Gill Sans', sans-serif;"> 
+                    <input type="Submit" class="btn btn-outline-dark btn-block" value="Unregister" style="font-family: 'Gill Sans', sans-serif;"> 
                 </form>
                 {% endif %}
                 <br>
