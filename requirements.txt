@@ -7,5 +7,6 @@ psycopg2
 python-dotenv
 django-environ
 django-taggit
+django-social-share
 django-storages
 boto3
