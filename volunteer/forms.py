@@ -7,7 +7,7 @@ from .models import VolunteerEvent
 class PostForm(forms.ModelForm):
     class Meta:
         model = VolunteerEvent
-        fields = ['event_title', 'event_description', 'cover', 'event_datetime', 'event_location', 'tags']
+        fields = ['event_title', 'event_description', 'cover', 'event_datetime', 'event_location']
 
         labels = {
             'event_title': ('Title'),
@@ -15,7 +15,7 @@ class PostForm(forms.ModelForm):
             'cover':('Cover Photo'),
             'event_datetime':('Start Date and Time'),
             'event_location':('Location'),
-            'tags':('Useful Tags')
+            # 'tags':('Useful Tags')
         }
 
         help_texts = {
