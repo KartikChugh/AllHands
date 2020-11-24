@@ -26,7 +26,7 @@ class CreateEventFormTest(TestCase):
     def test_create_event_form_event_datetime_label(self):
         form = PostForm()
         self.assertTrue(
-            form.fields['event_datetime'].label == 'Date and Time')
+            form.fields['event_datetime'].label == 'Start Date and Time:')
 
 
     def test_create_event_form_event_title_help_text(self):
@@ -43,6 +43,6 @@ class CreateEventFormTest(TestCase):
     def test_create_event_form_event_datetime_label(self):
         form = PostForm()
         self.assertTrue(
-            form.fields['event_datetime'].help_text == 'Format: yyyy-mm-dd hh:mm:ss')
+            form.fields['event_datetime'].help_text == 'When is your event?')
 
 
