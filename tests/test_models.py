@@ -14,7 +14,6 @@ class VolunteerEventModelTest(TestCase):
         # Set up non-modified objects used by all test methods
         test_user1 = User.objects.create_user(username='testuser1', password='1X<ISRUkw+tuK')
         test_user1.save()
-
         VolunteerEvent.objects.create(event_title='Fun Event', event_description='This event will be really fun')
 
     # Methods
@@ -53,7 +52,7 @@ class VolunteerEventModelTest(TestCase):
 
     def test_default_datetime_tmrw(self):
         author = VolunteerEvent.objects.get(id=1)
-        now = timezone.now().date()
+        now = timezone.localtime(timezone.now()).date()
         self.assertNotEqual(now, author.event_datetime.date())
         self.assertEqual(now.replace(day=now.day+1), author.event_datetime.date())
 
