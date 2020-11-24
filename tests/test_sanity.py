@@ -12,22 +12,7 @@ class YourTestClass(TestCase):
         # print("setUp: Run once for every test method to setup clean data.")
         pass
 
-    def test_false_is_false(self):
-        # print("Method: test_false_is_false.")
-        self.assertFalse(False)
 
     def test_false_is_true(self):
         # print("Method: test_false_is_true.")
         self.assertTrue(True)
-
-    def test_one_plus_one_equals_two(self):
-        # print("Method: test_one_plus_one_equals_two.")
-        self.assertEqual(1 + 1, 2)
-
-
-class DummyTestCase(TestCase):
-    def setUp(self):
-        x = 1
-
-    def test_dummy_test_case(self):
-        self.assertEqual(1, 1)
