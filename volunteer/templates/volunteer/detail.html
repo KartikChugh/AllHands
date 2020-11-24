@@ -1,7 +1,8 @@
 {% extends './base.html' %}
 
-
+{% load social_share %}
 {% block content %}
+
 
 <div class="container">
     <br>
@@ -38,6 +39,8 @@
                 </form>
                 {% endif %}
                 <br>
+                {% post_to_twitter "Join me in volunteering for {{object.event_title}}!" "" "Share on Twitter" %}
+                {% send_email "Volunteer Event: {{object.event_title}}" "Check out an event I've signed up for!" "" "Share via Email" %}
                 <br>
                 <br>
                 <br>
