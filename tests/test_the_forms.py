@@ -42,7 +42,6 @@ class CreateEventFormTestBehavior(TestCase):
             'cover': "stock/thomas.jpg",
             'event_datetime': self.get_tomorrow(),
             'event_location': 'somewhere',
-            'tags': 'home repair'
                         }
         response = self.client.post('/volunteer/post/', form_params)
         self.assertEqual(response.status_code, 302)
@@ -54,7 +53,6 @@ class CreateEventFormTestBehavior(TestCase):
             'cover': "stock/thomas.jpg",
             'event_datetime': self.get_tomorrow(),
             'event_location': 'somewhere',
-            'tags': 'home repair'
                         }
         response = self.client.post('/volunteer/post/', form_params)
         self.assertEqual(response.status_code, 302)
@@ -66,7 +64,6 @@ class CreateEventFormTestBehavior(TestCase):
             'cover': "stock/thomas.jpg",
             'event_datetime': datetime.datetime.now(),
             'event_location': 'somewhere',
-            'tags': 'home repair'
                         }
         response = self.client.post('/volunteer/post/', form_params)
         self.assertEqual(response.status_code, 200)
@@ -78,7 +75,6 @@ class CreateEventFormTestBehavior(TestCase):
             'cover': "stock/thomas.jpg",
             'event_datetime': self.get_yesterday(),
             'event_location': 'somewhere',
-            'tags': 'home repair'
                         }
         response = self.client.post('/volunteer/post/', form_params)
         self.assertEqual(response.status_code, 200)
@@ -90,7 +86,6 @@ class CreateEventFormTestBehavior(TestCase):
             'cover': "stock/thomas.jpg",
             'event_datetime': self.get_tomorrow(),
             'event_location': 'somewhere',
-            'tags': 'home repair'
                         }
         response = self.client.post('/volunteer/post/', form_params)
         self.assertEqual(response.status_code, 200)
@@ -101,7 +96,6 @@ class CreateEventFormTestBehavior(TestCase):
             'cover': "stock/thomas.jpg",
             'event_datetime': self.get_tomorrow(),
             'event_location': 'somewhere',
-            'tags': 'home repair'
                         }
         response = self.client.post('/volunteer/post/', form_params)
         self.assertEqual(response.status_code, 200)
@@ -112,7 +106,6 @@ class CreateEventFormTestBehavior(TestCase):
             'event_description': 'description',
             'event_datetime': self.get_tomorrow(),
             'event_location': 'somewhere',
-            'tags': 'home repair'
                         }
         response = self.client.post('/volunteer/post/', form_params)
         self.assertEqual(response.status_code, 302)
@@ -124,21 +117,10 @@ class CreateEventFormTestBehavior(TestCase):
             'event_description': 'description',
             'cover': "stock/thomas.jpg",
             'event_datetime': self.get_tomorrow(),
-            'tags': 'home repair'
                         }
         response = self.client.post('/volunteer/post/', form_params)
         self.assertEqual(response.status_code, 200)
 
-    def test_form_missing_tags(self):
-        form_params = {
-            'event_title': 'title',
-            'event_description': 'description',
-            'cover': "stock/thomas.jpg",
-            'event_datetime': self.get_tomorrow(),
-            'event_location': 'somewhere',
-                        }
-        response = self.client.post('/volunteer/post/', form_params)
-        self.assertEqual(response.status_code, 200)
 
 class CreateEventFormTestLabels(TestCase):
     def test_create_event_form_event_title_label(self):
