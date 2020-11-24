@@ -20,7 +20,7 @@
             <div  class="flex-item" style="width:400px;height:400px; background-color: rgb(154, 198, 231); background-image: url('https://img.freepik.com/free-vector/raised-hands-volunteering-blue-background-vector_77417-471.jpg?size=626&ext=jpg'); opacity: .8; background-size: 100% 100%">{{ event.event_title }}
                 <h3 style="font-size: 20px">{{event.event_datetime}}</h3>
                 <form action="{% url 'volunteer:detailmyevent' event.id %}">
-                    <input type="Submit" class="btn btn-outline-light" value="Click for details."> 
+                    <input type="Submit" class="btn btn-light btn-lg" value="View Details"> 
                 </form>
                 <img src="{{ event.cover.url}}" alt="{{ event.title }}" style="width:128px;height:128px">
 
@@ -43,7 +43,7 @@
         <div  class="flex-item" style="width:400px;height:400px; background-color: rgb(154, 198, 231); background-image: url('https://img.freepik.com/free-vector/raised-hands-volunteering-blue-background-vector_77417-471.jpg?size=626&ext=jpg'); opacity: .8; background-size: 100% 100%">{{ event.event_title }}
             <h3 style="font-size: 20px">{{event.event_datetime}}</h3>
             <form action="{% url 'volunteer:detailmyevent' event.id %}">
-                <input type="Submit" class="btn btn-outline-light" value="Click for details."> 
+                <input type="Submit" class="btn btn-light btn-lg" value="View Details"> 
             </form>
             
             <img src="{{ event.cover.url}}" alt="{{ event.title }}" style="width:128px;height:128px">
