@@ -28,6 +28,10 @@
                         <li style="font-family: 'Gill Sans', sans-serif;">{{user.username}}  ({{user.email }}) </li>
                         {% endfor %}
                     </p>
+                <form action="{% url 'volunteer:delete' object.id %}" method="post"> 
+                    {% csrf_token %}
+                    <input type="Submit" class="btn btn-danger btn-sm" value="Delete Event" style="font-family: 'Gill Sans', sans-serif;"> 
+                </form>        
             </div>
         </div>
         <div class="col-md-6">

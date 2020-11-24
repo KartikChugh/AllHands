@@ -134,6 +134,17 @@ class EventBrowseView(LoginRequiredMixin ,generic.ListView):
         # return VolunteerEvent.objects.order_by('-event_title')
         return VolunteerEvent.objects.filter(event_datetime__gt=timezone.now()).order_by('event_datetime')
 
+def delete(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
+    if (request.method == 'POST'):
+        VolunteerEvent.objects.get(pk=pk).delete()
+
+        return HttpResponseRedirect(reverse_lazy('volunteer:myevents'))
+    else: 
+        return render(request, 'volunteer/eventbrowse.html')
+
 def unregister(request, pk):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
